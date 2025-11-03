@@ -179,10 +179,13 @@ export default function About() {
             <div className="lg:col-span-3 space-y-6">
               <div className="space-y-5">
                 {/* === TYPING ANIMATION === */}
-                <p className="text-xl font-medium text-foreground leading-relaxed">
-                  Hi, I&apos;m <span className="text-primary font-bold">Marc</span> —{" "}
-                  <span className="typing-text-infinite">{typedText}</span>
-                </p>
+                {/* Fixed height container to prevent layout shift */}
+                <div className="min-h-[6.5rem] lg:min-h-[5rem] -mb-1">
+                  <p className="text-xl font-medium text-foreground leading-relaxed">
+                    Hi, I&apos;m <span className="text-primary font-bold">Marc</span> —{" "}
+                    <span className="typing-text-infinite">{typedText}</span>
+                  </p>
+                </div>
 
                 {/* Rest of paragraphs */}
                 {[
