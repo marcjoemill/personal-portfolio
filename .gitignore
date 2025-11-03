@@ -1,0 +1,12 @@
+# Root level ignores
+package-lock.json
+node_modules/
+.DS_Store
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
