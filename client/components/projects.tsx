@@ -13,46 +13,55 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
+      title: "KusinaHub",
       description:
-        "Full-stack e-commerce solution with payment integration, product management, and user authentication.",
-      tags: ["React", "Node.js", "MongoDB", "Stripe"],
-      image: "/ecommerce-platform.jpg",
+        "A flutter mobile application that helps users plan and organize their trips, featuring itinerary management, budget tracking, and local recommendations.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+      video: "/kusina-hub.mp4",
       links: { demo: "#", github: "#" },
     },
     {
-      title: "Task Management App",
-      description: "Collaborative task management application with real-time updates and team collaboration features.",
-      tags: ["Next.js", "TypeScript", "PostgreSQL", "WebSockets"],
-      image: "/task-management-app.jpg",
+      title: "Lakbayan",
+      description:
+        "A Filipino-inspired 2D endless runner built in Godot, where players control a growing horde that moves and jumps collectively to avoid obstacles",
+      tags: ["Godot", "GDScript", "Game Development"],
+      image: "/lakbayan.png",
+      links: { demo: "https://graygv.itch.io/lak", github: "https://github.com/marcjoemill/pinoy_tsunami.git" },
+    },
+    {
+      title: "Travel Buddy",
+      description:
+        "A flutter mobile application that helps users plan and organize their trips, featuring itinerary management, budget tracking, and local recommendations.",
+      tags: ["Flutter", "Dart", "Firebase"],
+      image: "/travel-buddy.png",
+      links: { demo: "#", github: "https://github.com/CMSC-23/cmsc-23-project-group-repo-travelbuddies.git" },
+    },
+    {
+      title: "Harvest",
+      description: "An e-commerce web application using MERN stack, inspired by the Farm-to-table movement, connecting local farmers directly with consumers to provide fresh produce.",
+      tags: ["React", "MongoDB", "Express", "Node.js"],
+      image: "/harvest.png",
+      links: { demo: "#", github: "https://github.com/marcjoemill/harvest.git" },
+    },
+    {
+      title: "ANI",
+      description: "A smart, AI-powered mobile assistant application using Flutter, designed to support Filipino farmers with timely, accessible, and localized agricultural information.",
+      tags: ["Flutter", "Dart", "Firebase"],
+      image: "/ani.png",
       links: { demo: "#", github: "#" },
     },
     {
-      title: "Data Analytics Dashboard",
-      description: "Interactive dashboard for visualizing complex data with customizable charts and real-time metrics.",
-      tags: ["React", "D3.js", "TypeScript", "REST API"],
-      image: "/analytics-dashboard.png",
-      links: { demo: "#", github: "#" },
-    },
-    {
-      title: "Social Media App",
-      description: "Social platform featuring user profiles, image sharing, and real-time notifications.",
-      tags: ["React Native", "Firebase", "Redux", "Node.js"],
-      image: "/social-media-app.jpg",
-      links: { demo: "#", github: "#" },
-    },
-    {
-      title: "AI Content Generator",
-      description: "AI-powered tool for generating and optimizing content with machine learning capabilities.",
-      tags: ["Next.js", "OpenAI API", "Tailwind CSS", "Vercel"],
-      image: "/ai-content-generator.jpg",
-      links: { demo: "#", github: "#" },
+      title: "Pick Peak Fighters",
+      description: "A 2D fighting game using JavaFX, capable of moving, attacking, and blocking.",
+      tags: ["JavaFX", "Java", "Game Development"],
+      image: "/pick-peak-fighters.png",
+      links: { demo: "#", github: "https://github.com/marcjoemill/Pick-Peak-Fighters.git" },
     },
     {
       title: "Portfolio Website",
-      description: "Elegant portfolio site showcasing work and skills with smooth animations and responsive design.",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      image: "/portfolio-website.jpg",
+      description: "Personal portfolio website to showcase projects, skills, and experiences with a modern and responsive design.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+      image: "/portfolio-website.png",
       links: { demo: "#", github: "#" },
     },
   ]
@@ -74,11 +83,23 @@ export default function Projects() {
               >
                 <div className="rounded-xl overflow-hidden bg-muted/50 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 h-full flex flex-col">
                   <div className="relative overflow-hidden h-48 bg-muted">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
+                    {project.video ? (
+                      <video
+                        src={project.video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    )}
+
                     {/* overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                       <div className="p-4 w-full">
