@@ -23,47 +23,20 @@ export default function Experiences() {
   const experiences = [
     {
       id: 1,
-      company: "Tech Company Inc",
-      role: "Flutter Developer & QA Tester",
-      duration: "3-4 weeks",
-      period: "Summer 2024",
-      status: "Full-time Student",
+      company: "QE 360",
+      role: "Flutter Quality Assurance",
+      duration: "4 weeks",
+      period: "October 2025 - November 2025",
+      status: "Part-time",
       description:
-        "Fixed critical bugs in the mobile application while maintaining code quality and user experience standards.",
+        "Fixed bugs and tested bugfixes in the mobile application while maintaining code quality and user experience standards.",
       technologies: ["Flutter", "Dart", "Firebase", "Testing"],
       achievements: [
-        "Resolved 15+ critical bugs",
-        "Improved app performance by 40%",
-        "Implemented automated testing suite",
+        "Resolved a good amount of low to critical bugs",,
+        "Implemented regression tests to ensure app stability",
       ],
       color: "from-cyan-500 via-blue-600 to-indigo-700",
       accentColor: "bg-cyan-500",
-    },
-    {
-      id: 2,
-      company: "Your Company Name",
-      role: "Position Title",
-      duration: "Duration",
-      period: "Time Period",
-      status: "Status",
-      description: "Add your experience description here. What did you do? What technologies did you use?",
-      technologies: ["Tech1", "Tech2", "Tech3"],
-      achievements: ["Achievement 1", "Achievement 2", "Achievement 3"],
-      color: "from-pink-500 via-purple-600 to-violet-700",
-      accentColor: "bg-pink-500",
-    },
-    {
-      id: 3,
-      company: "Your Company Name",
-      role: "Position Title",
-      duration: "Duration",
-      period: "Time Period",
-      status: "Status",
-      description: "Add your experience description here. What did you do? What technologies did you use?",
-      technologies: ["Tech1", "Tech2", "Tech3"],
-      achievements: ["Achievement 1", "Achievement 2", "Achievement 3"],
-      color: "from-orange-500 via-red-600 to-rose-700",
-      accentColor: "bg-orange-500",
     },
   ]
 
@@ -180,12 +153,6 @@ export default function Experiences() {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="mt-16 pt-12 border-t border-slate-700">
-            <p className="text-slate-400 text-sm font-light">
-              ✨ The fun does not stop there!
-            </p>
           </div>
         </div>
       </div>
