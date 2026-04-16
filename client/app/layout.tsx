@@ -1,27 +1,19 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
-
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+import type { Metadata } from 'next';
+import './index.css';
+import CursorOverlay from './animations/cursor/CursorOverlay';
 
 export const metadata: Metadata = {
-  title: 'Marc Joemil\'s Portfolio',
-  description: 'Welcome to the portfolio of Marc Joemil, a passionate BS Computer Science student specializing in web and mobile app development. Explore my projects, skills, and get in touch to collaborate on exciting tech ventures!',
-}
+  title: 'My Portfolio',
+  description: 'Personal portfolio site',
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body>
         {children}
-        <Analytics />
+        {/* <CursorOverlay /> */}
       </body>
     </html>
-  )
+  );
 }
