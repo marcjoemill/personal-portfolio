@@ -67,13 +67,18 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={`text-lg font-medium transition-colors duration-300 ${
+            className={`transition-opacity duration-300 ${
               isDark
-                ? 'text-white/80 hover:text-white'
-                : 'text-gray-800 hover:text-gray-600'
+                ? 'opacity-90 hover:opacity-100'
+                : 'opacity-80 hover:opacity-100'
             }`}
+            aria-label="Back to top"
           >
-            Portfolio
+            <img
+              src="/marc_logo2.png"
+              alt="Marc logo"
+              className="h-10 w-auto object-contain"
+            />
           </button>
 
           <div className="flex items-center gap-8">
