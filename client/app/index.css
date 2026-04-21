@@ -23,6 +23,7 @@
     100% { opacity: 1; transform: scale(1); }
   }
   @keyframes blink {
+    0%, 100% { border-color: var(--color-primary); }
     50% { border-color: transparent; }
   }
 }
@@ -35,6 +36,17 @@
 
 @utility typing-text-infinite {
   border-right: 2px solid var(--color-primary);
-  animation: blink 0.7s infinite;
+  animation: blink 0.7s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-down,
+  .animate-fade-in-up,
+  .animate-scale-in,
+  .animate-slide-in-left,
+  .animate-pop-in,
+  .typing-text-infinite {
+    animation: none !important;
+  }
 }
 

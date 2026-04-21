@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './index.css';
-import CursorOverlay from './animations/cursor/CursorOverlay';
+import Wrapper from './Wrapper';
 
 export const metadata: Metadata = {
   title: 'My Portfolio',
@@ -10,9 +10,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        {children}
-        {/* <CursorOverlay /> */}
+      <body className="bg-black text-white antialiased">
+        <Wrapper>
+          {children}
+        </Wrapper>
       </body>
     </html>
   );
