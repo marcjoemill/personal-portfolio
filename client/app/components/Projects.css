@@ -1,0 +1,402 @@
+/* ── FONTS ──────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ── TOKENS ─────────────────────────────────────────────────────────────── */
+:root {
+  --cream:        #F5F0E8;
+  --dark:         #420303;
+  --hover:        #893F45;
+  --wood:         #3a0202;
+  --wood-light:   #5c1010;
+  --shadow:       rgba(66, 3, 3, 0.15);
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── PAGE ───────────────────────────────────────────────────────────────── */
+.projects-page {
+  min-height: 100vh;
+  background-color: var(--cream);
+  /* subtle linen grain */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3C/svg%3E");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  padding: 48px 24px 64px;
+}
+
+/* ── CABINET CONTAINER ──────────────────────────────────────────────────── */
+.cabinet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 860px;
+}
+
+/* ── TOP LABEL ──────────────────────────────────────────────────────────── */
+.cabinet-label {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--dark);
+  text-transform: uppercase;
+}
+
+.label-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hover);
+  flex-shrink: 0;
+}
+
+/* ── CABINET FRAME ──────────────────────────────────────────────────────── */
+.cabinet-frame {
+  width: 100%;
+  border: 3px solid var(--wood);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: var(--cream);
+  position: relative;
+  padding: 32px 40px 0;
+  box-shadow:
+    inset 0 0 0 8px var(--cream),
+    inset 0 0 0 11px var(--wood);
+  overflow: visible;
+}
+
+/* ── SHELF ──────────────────────────────────────────────────────────────── */
+.shelf {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.cups-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 16px 0 12px;
+  gap: 8px;
+}
+
+.shelf-board {
+  height: 14px;
+  background: var(--wood);
+  border-radius: 2px;
+  width: calc(100% + 24px);
+  margin-left: -12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  position: relative;
+}
+
+/* plank texture lines on shelf */
+.shelf-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 38px,
+    rgba(255,255,255,0.06) 38px,
+    rgba(255,255,255,0.06) 40px
+  );
+  border-radius: 2px;
+}
+
+/* ── CUP ITEM ───────────────────────────────────────────────────────────── */
+.cup-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex: 1;
+  max-width: 160px;
+}
+
+.cup-item:hover,
+.cup-item.cup-on {
+  transform: translateY(-10px);
+}
+
+.cup-svg {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  transition: filter 0.2s ease;
+}
+
+.cup-item.cup-on .cup-svg {
+  filter: drop-shadow(0 6px 14px rgba(137, 63, 69, 0.35));
+}
+
+.cup-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.cup-item.cup-on .cup-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── COUNTER TOP ─────────────────────────────────────────────────────────── */
+.cabinet-counter {
+  height: 22px;
+  background: var(--wood);
+  width: calc(100% + 80px);
+  margin-left: -40px;
+  border-radius: 2px;
+  box-shadow: 0 6px 20px var(--shadow);
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.cabinet-counter::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--wood-light);
+  border-radius: 1px;
+}
+
+/* ── LEGS ────────────────────────────────────────────────────────────────── */
+.cabinet-legs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  gap: 0;
+}
+
+.cabinet-leg {
+  width: 14px;
+  height: 60px;
+  background: var(--wood);
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  box-shadow: 2px 4px 8px var(--shadow);
+}
+
+/* leg grain lines */
+.cabinet-leg::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 50%;
+  width: 1px;
+  background: var(--wood-light);
+  opacity: 0.6;
+}
+
+/* ── DETAIL PANEL ───────────────────────────────────────────────────────── */
+.project-detail {
+  width: 100%;
+  border: 2px solid var(--dark);
+  background: var(--cream);
+  padding: 28px 32px 24px;
+  position: relative;
+  animation: slideUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: 1.5px solid var(--dark);
+  color: var(--dark);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.detail-close:hover {
+  background: var(--dark);
+  color: var(--cream);
+}
+
+.detail-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--hover);
+  margin-bottom: 6px;
+}
+
+.detail-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.detail-desc {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--dark);
+  opacity: 0.75;
+  margin-bottom: 16px;
+  max-width: 520px;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.detail-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--dark);
+  border: 1.5px solid var(--dark);
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+.detail-link {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--dark);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--hover);
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.detail-link:hover {
+  color: var(--hover);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cabinet { max-width: 720px; }
+}
+
+@media (max-width: 768px) {
+  .projects-page {
+    padding: 32px 16px 48px;
+  }
+  
+  .cabinet-frame {
+    padding: 24px 24px 0;
+  }
+
+  .cabinet-counter {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+  }
+
+  .cabinet-legs {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    padding: 0 15px;
+  }
+
+  .cup-label {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cabinet-frame { 
+    padding: 20px 12px 0; 
+    box-shadow:
+      inset 0 0 0 6px var(--cream),
+      inset 0 0 0 9px var(--wood);
+  }
+  
+  .cups-row { 
+    gap: 4px; 
+    padding: 12px 0 8px;
+  }
+  
+  .cup-item { 
+    max-width: 80px; 
+    gap: 4px;
+  }
+
+  .shelf-board {
+    height: 10px;
+    width: calc(100% + 12px);
+    margin-left: -6px;
+  }
+  
+  .cabinet-counter {
+    height: 18px;
+    width: calc(100% + 24px);
+    margin-left: -12px;
+  }
+
+  .cabinet-leg {
+    width: 10px;
+    height: 40px;
+  }
+
+  .project-detail {
+    padding: 24px 20px 20px;
+  }
+
+  .detail-title { 
+    font-size: 1.25rem; 
+  }
+  
+  .detail-desc {
+    font-size: 0.72rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 400px) {
+  .cabinet-label {
+    font-size: 0.6rem;
+  }
+
+  .cup-label {
+    display: none; /* Hide labels on very small screens to save space */
+  }
+}
