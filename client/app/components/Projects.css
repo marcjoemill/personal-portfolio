@@ -39,17 +39,17 @@
 .cabinet-label {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.68rem;
+  gap: 12px;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   color: var(--dark);
   text-transform: uppercase;
 }
 
 .label-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--hover);
   flex-shrink: 0;

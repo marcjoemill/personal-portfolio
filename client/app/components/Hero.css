@@ -42,19 +42,8 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.035'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.035'/%3E%3C/svg%3E");
 }
 
-/* ── HORIZONTAL RULES ────────────────────────────────────────────────────── */
-.hero-rule {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--dark-faint), transparent);
-  z-index: 2;
-}
 
-.hero-rule--top {
-  top: 5rem;
-}
+/* ── SVG BASE ────────────────────────────────────────────────────────────── */
 
 /* ── SVG BASE ────────────────────────────────────────────────────────────── */
 .hero-svg {
@@ -130,26 +119,46 @@
 
 /* Cloud 1: swings between left edge and center */
 @keyframes cloudSwing1 {
-  from { transform: translateX(-8vw); }
-  to   { transform: translateX(40vw); }
+  from {
+    transform: translateX(-8vw);
+  }
+
+  to {
+    transform: translateX(40vw);
+  }
 }
 
 /* Cloud 2: swings between right-of-center and far right */
 @keyframes cloudSwing2 {
-  from { transform: translateX(58vw); }
-  to   { transform: translateX(96vw); }
+  from {
+    transform: translateX(58vw);
+  }
+
+  to {
+    transform: translateX(96vw);
+  }
 }
 
 /* Cloud 3: swings left to just shy of center */
 @keyframes cloudSwing3 {
-  from { transform: translateX(-5vw); }
-  to   { transform: translateX(30vw); }
+  from {
+    transform: translateX(-5vw);
+  }
+
+  to {
+    transform: translateX(30vw);
+  }
 }
 
 /* Cloud 4: swings between center-right and right */
 @keyframes cloudSwing4 {
-  from { transform: translateX(52vw); }
-  to   { transform: translateX(88vw); }
+  from {
+    transform: translateX(52vw);
+  }
+
+  to {
+    transform: translateX(88vw);
+  }
 }
 
 .hero-clouds {
@@ -178,7 +187,8 @@
   top: 15%;
   opacity: 0.8;
   animation: cloudSwing1 28s ease-in-out infinite alternate;
-  animation-delay: -8s;   /* starts mid-swing */
+  animation-delay: -8s;
+  /* starts mid-swing */
 }
 
 /* ── Cloud 2: right-of-center ↔ far right, TOP ───────────────────────────── */
@@ -187,7 +197,8 @@
   top: 22%;
   opacity: 0.75;
   animation: cloudSwing2 34s ease-in-out infinite alternate;
-  animation-delay: -20s;  /* already near its right turning point */
+  animation-delay: -20s;
+  /* already near its right turning point */
 }
 
 /* ── Cloud 3: left ↔ almost center, BOTTOM ──────────────────────────────── */
@@ -196,7 +207,8 @@
   top: 68%;
   opacity: 0.8;
   animation: cloudSwing3 22s ease-in-out infinite alternate;
-  animation-delay: -3s;   /* just starting its rightward swing */
+  animation-delay: -3s;
+  /* just starting its rightward swing */
 }
 
 /* ── Cloud 4: center-right ↔ right, BOTTOM ──────────────────────────────── */
@@ -205,7 +217,8 @@
   top: 78%;
   opacity: 0.75;
   animation: cloudSwing4 38s ease-in-out infinite alternate;
-  animation-delay: -28s;  /* somewhere in the middle of range */
+  animation-delay: -28s;
+  /* somewhere in the middle of range */
 }
 
 /* ── MAIN CONTENT ────────────────────────────────────────────────────────── */

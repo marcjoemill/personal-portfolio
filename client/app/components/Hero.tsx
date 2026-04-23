@@ -230,7 +230,8 @@
 
 
         {/* ── horizontal rule top ── */}
-        <div className="hero-rule hero-rule--top" />
+
+        {/* ── horizontal rule top ── */}
 
         {/* ── main content ── */}
         <div className="hero-content" ref={contentRef}>
