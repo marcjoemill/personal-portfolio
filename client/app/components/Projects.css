@@ -6,41 +6,37 @@
   --cream:        #F5F0E8;
   --dark:         #420303;
   --hover:        #893F45;
-  --wood:         #3a0202;
-  --wood-light:   #5c1010;
-  --shadow:       rgba(66, 3, 3, 0.15);
+  --shadow:       rgba(66, 3, 3, 0.18);
+  --shadow-light: rgba(66, 3, 3, 0.08);
 }
 
 /* ── RESET ───────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── PAGE ───────────────────────────────────────────────────────────────── */
+/* ── PAGE ────────────────────────────────────────────────────────────────── */
 .projects-page {
   min-height: 100vh;
   background-color: var(--cream);
-  /* subtle linen grain */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3C/svg%3E");
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-family: 'Space Mono', monospace;
-  padding: 48px 24px 64px;
+  padding: 56px 32px 80px;
 }
 
-/* ── CABINET CONTAINER ──────────────────────────────────────────────────── */
-.cabinet {
+/* ── WRAPPER ─────────────────────────────────────────────────────────────── */
+.projects-wrap {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-start;
+  gap: 24px;
   width: 100%;
-  max-width: 860px;
+  max-width: 960px;
 }
 
-/* ── TOP LABEL ──────────────────────────────────────────────────────────── */
+/* ── TOP LABEL ───────────────────────────────────────────────────────────── */
 .cabinet-label {
-  align-self: flex-start;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -59,46 +55,41 @@
   flex-shrink: 0;
 }
 
-/* ── CABINET FRAME ──────────────────────────────────────────────────────── */
-.cabinet-frame {
+/* ── 2×2 SHELF GRID ──────────────────────────────────────────────────────── */
+.shelves-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 48px;
   width: 100%;
-  border: 3px solid var(--wood);
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  background: var(--cream);
-  position: relative;
-  padding: 32px 40px 0;
-  box-shadow:
-    inset 0 0 0 8px var(--cream),
-    inset 0 0 0 11px var(--wood);
-  overflow: visible;
 }
 
-/* ── SHELF ──────────────────────────────────────────────────────────────── */
-.shelf {
-  margin-bottom: 8px;
-  position: relative;
+/* ── SHELF UNIT ──────────────────────────────────────────────────────────── */
+.shelf-unit {
+  display: flex;
+  flex-direction: column;
 }
 
-.cups-row {
+/* ── FOOD ROW ────────────────────────────────────────────────────────────── */
+.food-row {
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
-  padding: 16px 0 12px;
+  padding: 20px 8px 14px;
   gap: 8px;
 }
 
+/* ── SHELF BOARD ─────────────────────────────────────────────────────────── */
 .shelf-board {
-  height: 14px;
-  background: var(--wood);
+  height: 12px;
+  background: var(--dark);
   border-radius: 2px;
-  width: calc(100% + 24px);
-  margin-left: -12px;
-  box-shadow: 0 4px 12px var(--shadow);
+  width: 100%;
+  box-shadow: 0 5px 16px var(--shadow), 0 2px 4px var(--shadow-light);
   position: relative;
+  flex-shrink: 0;
 }
 
-/* plank texture lines on shelf */
+/* subtle wood grain texture */
 .shelf-board::before {
   content: '';
   position: absolute;
@@ -106,46 +97,61 @@
   background: repeating-linear-gradient(
     90deg,
     transparent 0px,
-    transparent 38px,
-    rgba(255,255,255,0.06) 38px,
-    rgba(255,255,255,0.06) 40px
+    transparent 42px,
+    rgba(255, 255, 255, 0.05) 42px,
+    rgba(255, 255, 255, 0.05) 44px
   );
   border-radius: 2px;
 }
 
-/* ── CUP ITEM ───────────────────────────────────────────────────────────── */
-.cup-item {
+/* shelf top highlight */
+.shelf-board::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px 2px 0 0;
+}
+
+/* ── FOOD ITEM ───────────────────────────────────────────────────────────── */
+.food-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   outline: none;
   position: relative;
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   flex: 1;
-  max-width: 160px;
+  max-width: 130px;
+  min-width: 0;
 }
 
-.cup-item:hover,
-.cup-item.cup-on {
-  transform: translateY(-10px);
+.food-item:hover,
+.food-item.food-on {
+  transform: translateY(-12px);
 }
 
-.cup-svg {
+/* ── FOOD SVG ────────────────────────────────────────────────────────────── */
+.food-svg {
   width: 100%;
   height: auto;
-  max-height: 120px;
+  max-height: 110px;
   transition: filter 0.2s ease;
 }
 
-.cup-item.cup-on .cup-svg {
-  filter: drop-shadow(0 6px 14px rgba(137, 63, 69, 0.35));
+.food-item.food-on .food-svg {
+  filter: drop-shadow(0 8px 16px rgba(137, 63, 69, 0.30));
 }
 
-.cup-label {
+/* ── FOOD LABEL ──────────────────────────────────────────────────────────── */
+.food-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -154,69 +160,15 @@
   transform: translateY(4px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
+  text-align: center;
 }
 
-.cup-item.cup-on .cup-label {
+.food-item.food-on .food-label {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── COUNTER TOP ─────────────────────────────────────────────────────────── */
-.cabinet-counter {
-  height: 22px;
-  background: var(--wood);
-  width: calc(100% + 80px);
-  margin-left: -40px;
-  border-radius: 2px;
-  box-shadow: 0 6px 20px var(--shadow);
-  position: relative;
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-.cabinet-counter::after {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 12px;
-  right: 12px;
-  height: 2px;
-  background: var(--wood-light);
-  border-radius: 1px;
-}
-
-/* ── LEGS ────────────────────────────────────────────────────────────────── */
-.cabinet-legs {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
-  width: calc(100% + 40px);
-  margin-left: -20px;
-  gap: 0;
-}
-
-.cabinet-leg {
-  width: 14px;
-  height: 60px;
-  background: var(--wood);
-  border-radius: 0 0 4px 4px;
-  position: relative;
-  box-shadow: 2px 4px 8px var(--shadow);
-}
-
-/* leg grain lines */
-.cabinet-leg::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 50%;
-  width: 1px;
-  background: var(--wood-light);
-  opacity: 0.6;
-}
-
-/* ── DETAIL PANEL ───────────────────────────────────────────────────────── */
+/* ── DETAIL PANEL ────────────────────────────────────────────────────────── */
 .project-detail {
   width: 100%;
   border: 2px solid var(--dark);
@@ -312,91 +264,74 @@
   color: var(--hover);
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .cabinet { max-width: 720px; }
-}
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
 
+/* Tablet — stack to single column */
 @media (max-width: 768px) {
   .projects-page {
-    padding: 32px 16px 48px;
-  }
-  
-  .cabinet-frame {
-    padding: 24px 24px 0;
+    padding: 40px 20px 60px;
   }
 
-  .cabinet-counter {
-    width: calc(100% + 40px);
-    margin-left: -20px;
+  .shelves-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
-  .cabinet-legs {
-    width: calc(100% + 20px);
-    margin-left: -10px;
-    padding: 0 15px;
+  .food-row {
+    padding: 16px 4px 12px;
   }
 
-  .cup-label {
-    font-size: 0.55rem;
+  .food-item {
+    max-width: 100px;
+  }
+
+  .food-svg {
+    max-height: 90px;
   }
 }
 
-@media (max-width: 600px) {
-  .cabinet-frame { 
-    padding: 20px 12px 0; 
-    box-shadow:
-      inset 0 0 0 6px var(--cream),
-      inset 0 0 0 9px var(--wood);
+/* Mobile */
+@media (max-width: 480px) {
+  .projects-page {
+    padding: 28px 12px 48px;
   }
-  
-  .cups-row { 
-    gap: 4px; 
-    padding: 12px 0 8px;
+
+  .projects-wrap {
+    gap: 16px;
   }
-  
-  .cup-item { 
-    max-width: 80px; 
-    gap: 4px;
+
+  .food-item {
+    max-width: 80px;
+  }
+
+  .food-svg {
+    max-height: 76px;
+  }
+
+  .food-label {
+    font-size: 0.5rem;
   }
 
   .shelf-board {
     height: 10px;
-    width: calc(100% + 12px);
-    margin-left: -6px;
-  }
-  
-  .cabinet-counter {
-    height: 18px;
-    width: calc(100% + 24px);
-    margin-left: -12px;
-  }
-
-  .cabinet-leg {
-    width: 10px;
-    height: 40px;
   }
 
   .project-detail {
-    padding: 24px 20px 20px;
+    padding: 22px 18px 20px;
   }
 
-  .detail-title { 
-    font-size: 1.25rem; 
+  .detail-title {
+    font-size: 1.25rem;
   }
-  
+
   .detail-desc {
     font-size: 0.72rem;
-    line-height: 1.6;
   }
 }
 
-@media (max-width: 400px) {
-  .cabinet-label {
-    font-size: 0.6rem;
-  }
-
-  .cup-label {
-    display: none; /* Hide labels on very small screens to save space */
+/* Very small screens — hide labels */
+@media (max-width: 380px) {
+  .food-item.food-on .food-label {
+    display: none;
   }
 }
