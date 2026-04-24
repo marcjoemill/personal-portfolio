@@ -179,7 +179,7 @@ export default function BrDinerPage() {
                   transition={{ duration: 0.4 }}
                   className="diner-gallery-item"
                 >
-                  <img src={image.src} alt={image.alt} style={{ filter: image.filter }} />
+                  <img src={image.src} alt={image.alt} />
                 </motion.div>
               ))}
             </AnimatePresence>
