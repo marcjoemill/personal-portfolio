@@ -28,10 +28,10 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: 1,
-    name: "Project One",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["React", "TypeScript"],
-    link: "#",
+    name: "BR's Diner Official Website",
+    description: "Marketing website for a local diner in Pasay City with AI chatbot feature",
+    tags: ["Python", "FastAPI", "NextJS", "CSS", ],
+    link: "/br-diner",
     foodType: "ramen",
   },
   {
