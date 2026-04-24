@@ -55,7 +55,7 @@ export default function BrDinerPage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <Link href="/" className="diner-back-link">
+        <Link href="/#projects" className="diner-back-link">
           <div className="diner-back-arrow" />
           BACK TO PORTFOLIO
         </Link>

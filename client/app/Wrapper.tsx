@@ -14,7 +14,10 @@ export default function Wrapper({ children }: { children: ReactNode }) {
         sparkCount={8}
         duration={500}
       >
-        <div className="relative min-h-screen bg-black text-white selection:bg-[#EAB308] selection:text-black">
+        <div 
+          className="relative min-h-screen selection:bg-[#EAB308] selection:text-black"
+          style={{ backgroundColor: "#F5F0E8", color: "#420303" }}
+        >
           {children}
         </div>
       </ClickSpark>

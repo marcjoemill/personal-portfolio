@@ -9,6 +9,10 @@ export default function Footer() {
             top: 0,
             behavior: 'smooth'
         });
+        // Clear hash from URL
+        if (window.location.hash) {
+            window.history.replaceState(null, "", window.location.pathname);
+        }
     };
 
     const currentYear = new Date().getFullYear();

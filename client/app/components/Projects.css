@@ -23,6 +23,7 @@
   justify-content: center;
   font-family: 'Space Mono', monospace;
   padding: 56px 32px 80px;
+  scroll-margin-top: 150px;
 }
 
 /* ── WRAPPER ─────────────────────────────────────────────────────────────── */

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import "./Projects.css";
 
 interface Project {
@@ -36,34 +37,34 @@ const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    name: "Project Two",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Next.js", "Tailwind"],
-    link: "#",
+    name: "SPACES",
+    description: "Full-stack dorm discovery and management platform featuring SSR-ready pagination",
+    tags: ["PocketBase", "Go", "SvelteKit", "Figma"],
+    link: "/spaces",
     foodType: "icedtea",
   },
   {
     id: 3,
-    name: "Project Three",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Node.js", "API"],
-    link: "#",
+    name: "Kusina Hub",
+    description: "Cloud kitchen platform using Next.js. Achieved Top 10 in a nationwide hackathon, recognized for technical execution and business viability.",
+    tags: ["Next.js", "Use of AI"],
+    link: "/kusina-hub",
     foodType: "sushi",
   },
   {
     id: 4,
-    name: "Project Four",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Python", "ML"],
-    link: "#",
+    name: "Harvest",
+    description: "E-commerce platform supporting the farm to table movement",
+    tags: ["MongoDB", "Express", "React", "Node.js"],
+    link: "/harvest",
     foodType: "burger",
   },
   {
     id: 5,
-    name: "Project Five",
+    name: "Lakbayan",
     description: "A short description of what this project does and why it matters.",
     tags: ["Vue", "Firebase"],
-    link: "#",
+    link: "/lakbayan",
     foodType: "fries",
   },
   {
@@ -465,7 +466,7 @@ export default function Projects() {
   const activeProject = PROJECTS.find((p) => p.id === activeId) ?? null;
 
   return (
-    <main className="projects-page">
+    <main className="projects-page" id="projects">
       <div className="projects-wrap">
 
         {/* TOP LABEL */}
@@ -528,14 +529,12 @@ export default function Projects() {
                 <span key={t} className="detail-tag">{t}</span>
               ))}
             </div>
-            <a
+            <Link
               href={activeProject.link}
               className="detail-link"
-              target="_blank"
-              rel="noreferrer"
             >
               VIEW PROJECT →
-            </a>
+            </Link>
           </div>
         )}
 
