@@ -22,6 +22,7 @@ const GlobeIcon = () => (
 
 export default function BrDinerPage() {
   const [showAll, setShowAll] = useState(false);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const galleryImages = [
@@ -178,6 +179,8 @@ export default function BrDinerPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
                   className="diner-gallery-item"
+                  onClick={() => setSelectedImg(image.src)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <img src={image.src} alt={image.alt} />
                 </motion.div>
@@ -202,6 +205,43 @@ export default function BrDinerPage() {
           © {new Date().getFullYear()} MARC JOEMILL — BR’S DINER PROJECT
         </div>
       </footer>
+
+      {/* Image Modal Lightbox */}
+      <AnimatePresence>
+        {selectedImg && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImg(null)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              backgroundColor: 'rgba(0,0,0,0.9)',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'zoom-out',
+              padding: '40px'
+            }}
+          >
+            <motion.img
+              src={selectedImg}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                objectFit: 'contain',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
