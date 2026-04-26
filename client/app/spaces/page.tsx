@@ -29,6 +29,7 @@ export default function SpacesPage() {
         { id: 1, src: "/spaces/screen1.png", alt: "Room Management" },
         { id: 2, src: "/spaces/screen2.png", alt: "Student Dashboard" },
         { id: 3, src: "/spaces/screen3.png", alt: "Application Status" },
+        { id: 4, src: "/spaces/team.jpg", alt: "Spaces Team" },
     ];
 
     const visibleImages = showAll ? galleryImages : galleryImages.slice(0, 3);
@@ -68,7 +69,7 @@ export default function SpacesPage() {
                     transition={{ duration: 1.5 }}
                 >
                     <img
-                        src="/br/br_img1.jpg"
+                        src="/spaces/spaces.png"
                         alt="University Housing Background"
                         className="diner-hero-img"
                     />

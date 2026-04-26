@@ -47,7 +47,7 @@ const PROJECTS: Project[] = [
     id: 3,
     name: "Kusina Hub",
     description: "Cloud kitchen platform using Next.js. Achieved Top 10 in a nationwide hackathon, recognized for technical execution and business viability.",
-    tags: ["Next.js", "Use of AI"],
+    tags: ["Nextjs", "Use of AI"],
     link: "/kusina-hub",
     foodType: "sushi",
   },
@@ -62,66 +62,18 @@ const PROJECTS: Project[] = [
   {
     id: 5,
     name: "Lakbayan",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Vue", "Firebase"],
+    description: "A Filipino-inspired 2D endless runner co-engineered in Godot for Game Jam Los Baños 2025. Ranked 10th out of 47 submissions.",
+    tags: ["Godot", "GDScript", "Game Jam"],
     link: "/lakbayan",
-    foodType: "fries",
-  },
-  {
-    id: 6,
-    name: "Project Six",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["React Native", "Expo"],
-    link: "#",
-    foodType: "onigiri",
-  },
-  {
-    id: 7,
-    name: "Project Seven",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["GraphQL", "Prisma"],
-    link: "#",
-    foodType: "matcha",
-  },
-  {
-    id: 8,
-    name: "Project Eight",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Svelte", "Vite"],
-    link: "#",
-    foodType: "takoyaki",
-  },
-  {
-    id: 9,
-    name: "Project Nine",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["AWS", "Docker"],
-    link: "#",
-    foodType: "boba",
-  },
-  {
-    id: 10,
-    name: "Project Ten",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Figma", "UX"],
-    link: "#",
-    foodType: "croissant",
-  },
-  {
-    id: 11,
-    name: "Project Eleven",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Redis", "Postgres"],
-    link: "#",
-    foodType: "noodlecup",
-  },
-  {
-    id: 12,
-    name: "Project Twelve",
-    description: "A short description of what this project does and why it matters.",
-    tags: ["Three.js", "WebGL"],
-    link: "#",
     foodType: "friesbag",
+  },
+    {
+    id: 6,
+    name: "Travel Buddy",
+    description: "A mobile app designed for Filipino travelers, offering seamless navigation and local experience recommendations.",
+    tags: ["Flutter", "Dart", "Firebase"],
+    link: "/travel-buddy",
+    foodType: "croissant",
   },
 ];
 // ───────────────────────────────────────────────────────────────────────────
@@ -455,13 +407,13 @@ export default function Projects() {
   const [hoveredId, setHoveredId]   = useState<number | null>(null);
   const [activeId, setActiveId]     = useState<number | null>(null);
 
-  // 4 shelves × 3 items, 2 shelves per row
-  const shelves = [
-    PROJECTS.slice(0, 3),
-    PROJECTS.slice(3, 6),
-    PROJECTS.slice(6, 9),
-    PROJECTS.slice(9, 12),
-  ];
+  // Dynamically generate shelves based on project count (3 projects per shelf)
+  const itemsPerShelf = 3;
+  const shelves: Project[][] = [];
+  for (let i = 0; i < PROJECTS.length; i += itemsPerShelf) {
+    shelves.push(PROJECTS.slice(i, i + itemsPerShelf));
+  }
+
 
   const activeProject = PROJECTS.find((p) => p.id === activeId) ?? null;
 

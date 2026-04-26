@@ -58,6 +58,7 @@ interface MasonryProps {
   hoverScale?: number;
   blurToFocus?: boolean;
   colorShiftOnHover?: boolean;
+  onItemClick?: (item: Item) => void;
 }
 
 const Masonry: React.FC<MasonryProps> = ({
@@ -70,10 +71,12 @@ const Masonry: React.FC<MasonryProps> = ({
   scaleOnHover = true,
   hoverScale = 0.95,
   blurToFocus = true,
-  colorShiftOnHover = false
+  colorShiftOnHover = false,
+  onItemClick
 }) => {
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
+  const itemsRef = useRef<Map<string, HTMLDivElement>>(new Map());
 
   const getInitialPosition = (item: GridItem) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
@@ -130,74 +133,73 @@ const Masonry: React.FC<MasonryProps> = ({
   const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
-    if (!imagesReady) return;
+    if (!imagesReady || !containerRef.current) return;
 
-    grid.forEach((item, index) => {
-      const selector = `[data-key="${item.id}"]`;
-      const animationProps = {
-        x: item.x,
-        y: item.y,
-        width: item.w,
-        height: item.h
-      };
+    const ctx = gsap.context(() => {
+      grid.forEach((item, index) => {
+        const element = itemsRef.current.get(item.id);
+        if (!element) return;
 
-      if (!hasMounted.current) {
-        const initialPos = getInitialPosition(item);
-        const initialState = {
-          opacity: 0,
-          x: initialPos.x,
-          y: initialPos.y,
+        const animationProps = {
+          x: item.x,
+          y: item.y,
           width: item.w,
-          height: item.h,
-          ...(blurToFocus && { filter: 'blur(10px)' })
+          height: item.h
         };
 
-        gsap.fromTo(selector, initialState, {
-          opacity: 1,
-          ...animationProps,
-          ...(blurToFocus && { filter: 'blur(0px)' }),
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: index * stagger
-        });
-      } else {
-        gsap.to(selector, {
-          ...animationProps,
-          duration: duration,
-          ease: ease,
-          overwrite: 'auto'
-        });
-      }
-    });
+        if (!hasMounted.current) {
+          const initialPos = getInitialPosition(item);
+          const initialState = {
+            opacity: 0,
+            x: initialPos.x,
+            y: initialPos.y,
+            width: item.w,
+            height: item.h,
+            ...(blurToFocus && { filter: 'blur(10px)' })
+          };
+
+          gsap.fromTo(element, initialState, {
+            opacity: 1,
+            ...animationProps,
+            ...(blurToFocus && { filter: 'blur(0px)' }),
+            duration: 0.8,
+            ease: 'power3.out',
+            delay: index * stagger
+          });
+        } else {
+          gsap.to(element, {
+            ...animationProps,
+            duration: duration,
+            ease: ease,
+            overwrite: 'auto'
+          });
+        }
+      });
+    }, containerRef);
 
     hasMounted.current = true;
+    return () => ctx.revert();
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
 
-  const handleMouseEnter = (e: React.MouseEvent, item: GridItem) => {
-    const element = e.currentTarget as HTMLElement;
-    const selector = `[data-key="${item.id}"]`;
-
-    if (scaleOnHover) {
-      gsap.to(selector, { scale: hoverScale, duration: 0.3, ease: 'power2.out' });
-    }
-
-    if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay') as HTMLElement;
-      if (overlay) gsap.to(overlay, { opacity: 0.3, duration: 0.3 });
+  const handleMouseEnter = (itemId: string) => {
+    const element = itemsRef.current.get(itemId);
+    if (element && scaleOnHover) {
+      gsap.to(element, { scale: hoverScale, duration: 0.3, ease: 'power2.out' });
+      if (colorShiftOnHover) {
+        const overlay = element.querySelector('.color-overlay') as HTMLElement;
+        if (overlay) gsap.to(overlay, { opacity: 0.3, duration: 0.3 });
+      }
     }
   };
 
-  const handleMouseLeave = (e: React.MouseEvent, item: GridItem) => {
-    const element = e.currentTarget as HTMLElement;
-    const selector = `[data-key="${item.id}"]`;
-
-    if (scaleOnHover) {
-      gsap.to(selector, { scale: 1, duration: 0.3, ease: 'power2.out' });
-    }
-
-    if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay') as HTMLElement;
-      if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.3 });
+  const handleMouseLeave = (itemId: string) => {
+    const element = itemsRef.current.get(itemId);
+    if (element && scaleOnHover) {
+      gsap.to(element, { scale: 1, duration: 0.3, ease: 'power2.out' });
+      if (colorShiftOnHover) {
+        const overlay = element.querySelector('.color-overlay') as HTMLElement;
+        if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.3 });
+      }
     }
   };
 
@@ -206,11 +208,20 @@ const Masonry: React.FC<MasonryProps> = ({
       {grid.map(item => (
         <div
           key={item.id}
-          data-key={item.id}
+          ref={el => {
+            if (el) itemsRef.current.set(item.id, el);
+            else itemsRef.current.delete(item.id);
+          }}
           className="item-wrapper"
-          onClick={() => window.open(item.url, '_blank', 'noopener')}
-          onMouseEnter={e => handleMouseEnter(e, item)}
-          onMouseLeave={e => handleMouseLeave(e, item)}
+          onClick={() => {
+            if (onItemClick) {
+              onItemClick(item);
+            } else {
+              window.open(item.url, '_blank', 'noopener');
+            }
+          }}
+          onMouseEnter={() => handleMouseEnter(item.id)}
+          onMouseLeave={() => handleMouseLeave(item.id)}
         >
           <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
             {colorShiftOnHover && (
