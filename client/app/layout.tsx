@@ -3,8 +3,8 @@ import './index.css';
 import Wrapper from './Wrapper';
 
 export const metadata: Metadata = {
-  title: 'My Portfolio',
-  description: 'Personal portfolio site',
+  title: 'reservation @mj',
+  description: "Marc Joemil Mendoza's Portfolio",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
