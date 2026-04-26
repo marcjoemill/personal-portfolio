@@ -56,7 +56,7 @@ export default function Bill() {
       >
         {/* Receipt header */}
         <div className="bill-header">
-          <p className="bill-establishment">BR&apos;s Portfolio</p>
+          <p className="bill-establishment">MJ&apos;s Portfolio</p>
           <p className="bill-tagline">Thank you for dining with us.</p>
           <div className="bill-divider" />
           <p className="bill-date">
