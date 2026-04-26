@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ── TOKENS ─────────────────────────────────────────────────────────────── */
+:root {
+  --cream: #F5F0E8;
+  --dark:  #420303;
+  --maroon: #893F45;
+  --dark-muted: rgba(66, 3, 3, 0.55);
+  --dark-faint: rgba(66, 3, 3, 0.2);
+  --dark-ghost: rgba(66, 3, 3, 0.08);
+}
+
+/* ── SECTION ─────────────────────────────────────────────────────────────── */
+.bill-section {
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem 6rem;
+  position: relative;
+}
+
+/* ── PERFORATION — torn receipt edge ────────────────────────────────────── */
+.bill-perforation {
+  width: 100%;
+  max-width: 380px;
+  height: 16px;
+  background-image: radial-gradient(circle at 50% 0%, var(--cream) 8px, transparent 8px);
+  background-size: 20px 16px;
+  background-repeat: repeat-x;
+  background-position: top center;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 2;
+  /* The "torn" strip below */
+  border-bottom: none;
+  filter: drop-shadow(0 2px 0 var(--dark-faint));
+}
+
+/* ── RECEIPT WRAPPER ─────────────────────────────────────────────────────── */
+.bill-wrapper {
+  width: 100%;
+  max-width: 380px;
+  background: var(--cream);
+  border: 1px solid var(--dark-faint);
+  border-top: none;
+  padding: 2.5rem 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  box-shadow:
+    0 8px 32px rgba(66, 3, 3, 0.1),
+    0 2px 8px rgba(66, 3, 3, 0.06);
+  /* subtle paper grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.025'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
+.bill-header {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1.75rem;
+}
+
+.bill-establishment {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+
+.bill-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--dark-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.bill-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--dark-muted);
+  letter-spacing: 0.1em;
+  margin-top: 0.75rem;
+}
+
+/* ── DIVIDERS ────────────────────────────────────────────────────────────── */
+.bill-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--dark-faint);
+  margin: 0.25rem 0;
+}
+
+.bill-divider--dashed {
+  background: none;
+  border-top: 1px dashed var(--dark-faint);
+}
+
+/* ── ORDER ITEMS ─────────────────────────────────────────────────────────── */
+.bill-items {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.25rem 0;
+}
+
+.bill-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--dark-ghost);
+}
+
+.bill-item:last-child {
+  border-bottom: none;
+}
+
+.bill-item-qty {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--maroon);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 2.2rem;
+}
+
+.bill-item-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--dark);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.bill-item-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--dark-faint);
+  position: relative;
+  top: -0.15em;
+  min-width: 0.5rem;
+}
+
+.bill-item-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--maroon);
+  flex-shrink: 0;
+}
+
+/* ── TOTAL ───────────────────────────────────────────────────────────────── */
+.bill-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.bill-total-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+}
+
+.bill-total-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--dark);
+}
+
+/* ── DOWNLOAD BUTTON ─────────────────────────────────────────────────────── */
+.bill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--dark);
+  color: var(--cream);
+  border: none;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bill-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--maroon);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bill-btn:hover::before {
+  transform: scaleX(1);
+}
+
+.bill-btn-icon,
+.bill-btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+.bill-btn--printing {
+  background: var(--maroon);
+  cursor: wait;
+  pointer-events: none;
+}
+
+.bill-btn--printing::before {
+  display: none;
+}
+
+.bill-btn--printed {
+  background: var(--dark);
+  cursor: default;
+  pointer-events: none;
+}
+
+.bill-btn--printed::before {
+  transform: scaleX(1);
+  background: var(--maroon);
+}
+
+/* ── SPINNER ─────────────────────────────────────────────────────────────── */
+.bill-btn-spinner {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(245,240,232,0.3);
+  border-top-color: var(--cream);
+  border-radius: 50%;
+  animation: bill-spin 0.7s linear infinite;
+}
+
+@keyframes bill-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── FOOTER NOTE ─────────────────────────────────────────────────────────── */
+.bill-footer-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--dark-muted);
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── BARCODE ─────────────────────────────────────────────────────────────── */
+.bill-barcode {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  margin-top: 1.5rem;
+  opacity: 0.25;
+}
+
+.bill-barcode-bar {
+  width: 2px;
+  background: var(--dark);
+  border-radius: 1px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .bill-wrapper {
+    padding: 2rem 1.75rem 1.75rem;
+  }
+}

@@ -1,0 +1,338 @@
+/* ── FONTS ──────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ── TOKENS ─────────────────────────────────────────────────────────────── */
+:root {
+  --cream:        #F5F0E8;
+  --dark:         #420303;
+  --hover:        #893F45;
+  --shadow:       rgba(66, 3, 3, 0.18);
+  --shadow-light: rgba(66, 3, 3, 0.08);
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── PAGE ────────────────────────────────────────────────────────────────── */
+.projects-page {
+  min-height: 100vh;
+  background-color: var(--cream);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5F0E8'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23420303' opacity='0.04'/%3E%3C/svg%3E");
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  padding: 56px 32px 80px;
+  scroll-margin-top: 150px;
+}
+
+/* ── WRAPPER ─────────────────────────────────────────────────────────────── */
+.projects-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 960px;
+}
+
+/* ── TOP LABEL ───────────────────────────────────────────────────────────── */
+.cabinet-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--dark);
+  text-transform: uppercase;
+}
+
+.label-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--hover);
+  flex-shrink: 0;
+}
+
+/* ── 2×2 SHELF GRID ──────────────────────────────────────────────────────── */
+.shelves-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 48px;
+  width: 100%;
+}
+
+/* ── SHELF UNIT ──────────────────────────────────────────────────────────── */
+.shelf-unit {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── FOOD ROW ────────────────────────────────────────────────────────────── */
+.food-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 20px 8px 14px;
+  gap: 8px;
+}
+
+/* ── SHELF BOARD ─────────────────────────────────────────────────────────── */
+.shelf-board {
+  height: 12px;
+  background: var(--dark);
+  border-radius: 2px;
+  width: 100%;
+  box-shadow: 0 5px 16px var(--shadow), 0 2px 4px var(--shadow-light);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* subtle wood grain texture */
+.shelf-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 42px,
+    rgba(255, 255, 255, 0.05) 42px,
+    rgba(255, 255, 255, 0.05) 44px
+  );
+  border-radius: 2px;
+}
+
+/* shelf top highlight */
+.shelf-board::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px 2px 0 0;
+}
+
+/* ── FOOD ITEM ───────────────────────────────────────────────────────────── */
+.food-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex: 1;
+  max-width: 130px;
+  min-width: 0;
+}
+
+.food-item:hover,
+.food-item.food-on {
+  transform: translateY(-12px);
+}
+
+/* ── FOOD SVG ────────────────────────────────────────────────────────────── */
+.food-svg {
+  width: 100%;
+  height: auto;
+  max-height: 110px;
+  transition: filter 0.2s ease;
+}
+
+.food-item.food-on .food-svg {
+  filter: drop-shadow(0 8px 16px rgba(137, 63, 69, 0.30));
+}
+
+/* ── FOOD LABEL ──────────────────────────────────────────────────────────── */
+.food-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.food-item.food-on .food-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── DETAIL PANEL ────────────────────────────────────────────────────────── */
+.project-detail {
+  width: 100%;
+  border: 2px solid var(--dark);
+  background: var(--cream);
+  padding: 28px 32px 24px;
+  position: relative;
+  animation: slideUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: 1.5px solid var(--dark);
+  color: var(--dark);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.detail-close:hover {
+  background: var(--dark);
+  color: var(--cream);
+}
+
+.detail-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--hover);
+  margin-bottom: 6px;
+}
+
+.detail-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.detail-desc {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--dark);
+  opacity: 0.95;
+  margin-bottom: 16px;
+  max-width: 520px;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.detail-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--dark);
+  border: 1.5px solid var(--dark);
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+.detail-link {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--dark);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--hover);
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.detail-link:hover {
+  color: var(--hover);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+
+/* Tablet — stack to single column */
+@media (max-width: 768px) {
+  .projects-page {
+    padding: 40px 20px 60px;
+  }
+
+  .shelves-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .food-row {
+    padding: 16px 4px 12px;
+  }
+
+  .food-item {
+    max-width: 100px;
+  }
+
+  .food-svg {
+    max-height: 90px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .projects-page {
+    padding: 28px 12px 48px;
+  }
+
+  .projects-wrap {
+    gap: 16px;
+  }
+
+  .food-item {
+    max-width: 80px;
+  }
+
+  .food-svg {
+    max-height: 76px;
+  }
+
+  .food-label {
+    font-size: 0.5rem;
+  }
+
+  .shelf-board {
+    height: 10px;
+  }
+
+  .project-detail {
+    padding: 22px 18px 20px;
+  }
+
+  .detail-title {
+    font-size: 1.25rem;
+  }
+
+  .detail-desc {
+    font-size: 0.72rem;
+  }
+}
+
+/* Very small screens — hide labels */
+@media (max-width: 380px) {
+  .food-item.food-on .food-label {
+    display: none;
+  }
+}

@@ -1,183 +1,248 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { Mail, Github, Linkedin } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import "./About.css";
+import dynamic from "next/dynamic";
+
+const Masonry = dynamic(() => import("../animations/Masonry"), { ssr: false });
+const DecryptedText = dynamic(() => import("../animations/DecryptedText"), { ssr: false });
+
+// ── PHOTOS ────────────────────────────────────────────────────────────────
+const photos = [
+  { id: "1", img: "/about/1.jpg", url: "#", height: 500 },
+  { id: "2", img: "/about/2.jpg", url: "#", height: 300 },
+  { id: "3", img: "/about/3.jpg", url: "#", height: 450 },
+  { id: "4", img: "/about/4.jpg", url: "#", height: 380 },
+  { id: "5", img: "/about/5.jpg", url: "#", height: 420 },
+  { id: "6", img: "/about/6.jpg", url: "#", height: 310 },
+  { id: "7", img: "/about/7.jpg", url: "#", height: 400 },
+  { id: "8", img: "/about/8.jpg", url: "#", height: 480 },
+];
+
+// ── TECH STACK — grouped like a restaurant menu ───────────────────────────
+const techMenu = [
+  {
+    category: "Languages",
+    items: [
+      { name: "JavaScript", note: "Async logic" },
+      { name: "TypeScript", note: "Strict type-safety, generics" },
+      { name: "Python",     note: "Automation & scripting" },
+      { name: "Go",         note: "Concurrent systems & CLI" },
+      { name: "Dart",       note: "Reactive mobile patterns" },
+      { name: "C",          note: "Systems & memory logic" },
+      { name: "Java",       note: "Object-oriented design" },
+      { name: "SQL",        note: "Relational architecture" },
+    ],
+  },
+  {
+    category: "Frontend",
+    items: [
+      { name: "React",        note: "Component driven, Hooks" },
+      { name: "Next.js",      note: "SSR, App Router, RSC" },
+      { name: "SvelteKit",    note: "Efficient file-based apps" },
+      { name: "Flutter",      note: "Native cross-platform UI" },
+      { name: "Tailwind CSS", note: "Modern utility workflows" },
+      { name: "HTML & CSS",   note: "High-fidelity responsive layouts" },
+    ],
+  },
+  {
+    category: "Backend & Data",
+    items: [
+      { name: "Node.js",    note: "Event-driven architecture" },
+      { name: "Express.js", note: "RESTful API middleware" },
+      { name: "MongoDB",    note: "NoSQL schema design" },
+      { name: "Firebase",   note: "Real-time Auth & DB" },
+      { name: "Docker",     note: "Containerized deployment" },
+    ],
+  },
+  {
+    category: "Tooling",
+    items: [
+      { name: "Git & GitHub", note: "Collaborative CI/CD workflows" },
+      { name: "VS Code",      note: "Optimized DX & Debugging" },
+      { name: "Figma",        note: "UI/UX prototypes to production" },
+    ],
+  },
+];
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [typedText, setTypedText] = useState("")
-  const sectionRef = useRef<HTMLElement>(null)
-
-  const fullText = "a passionate BS Computer Science student with a drive for building meaningful digital experiences."
+  const [columns, setColumns] = useState(2);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.2, rootMargin: "0px 0px -80px 0px" }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!isVisible) return
-
-    let index = 0
-    let isDeleting = false
-    let timeout: NodeJS.Timeout
-
-    const type = () => {
-      if (!isDeleting) {
-        if (index < fullText.length) {
-          setTypedText(fullText.substring(0, index + 1))
-          index++
-          timeout = setTimeout(type, 50)
-        } else {
-          timeout = setTimeout(() => {
-            isDeleting = true
-            type()
-          }, 2000)
-        }
-      } else {
-        if (index > 0) {
-          setTypedText(fullText.substring(0, index - 1))
-          index--
-          timeout = setTimeout(type, 30)
-        } else {
-          isDeleting = false
-          timeout = setTimeout(type, 500)
-        }
+    const updateColumns = () => {
+      if (typeof window !== "undefined") {
+        setColumns(window.innerWidth <= 600 ? 1 : 2);
       }
-    }
-
-    timeout = setTimeout(type, 1000)
-    return () => clearTimeout(timeout)
-  }, [isVisible])
+    };
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
+  }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-background overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`transition-opacity duration-800 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          {/* Title */}
-          <div className="text-center mb-16">
-            <h2
-              className="text-5xl font-bold text-foreground mb-4 animate-fade-in-down"
-              style={{ animationDelay: isVisible ? "0.8s" : "0s" }}
-            >
-              About Me
-            </h2>
-            <div
-              className="w-24 h-1 bg-primary mx-auto rounded-full animate-scale-in"
-              style={{ animationDelay: isVisible ? "1.0s" : "0s" }}
+    <div className="about-root-container">
+      {/* ── Main about grid ───────────────────────────────────────── */}
+      <section className="about-section" id="about">
+        <div className="about-left">
+          <h2 className="about-heading">
+            <DecryptedText
+              text="Crafting things"
+              animateOn="view"
+              revealDirection="start"
+              parentClassName="about-heading-light"
             />
+            <br />
+            <DecryptedText
+              text="that matter."
+              animateOn="view"
+              revealDirection="start"
+              parentClassName="about-heading-bold"
+            />
+          </h2>
+
+          <div className="about-bio">
+            <p>
+              Good software is something you feel before you explain it. I care
+              deeply about whether a product feels right, not just if it works.
+              That instinct sharpened at QE 360, where I helped ship a
+              production Flutter app, learning that quality is a collaborative
+              act, not an afterthought.
+            </p>
+            <p>
+              I build for people, not portfolios. Whether it&apos;s a web app, a mobile
+              experience, or a game — I start with the person holding the screen,
+              trace backward to the problem they actually have, and build toward
+              that. The code is just the last step.
+            </p>
+            <p>
+              Outside the editor, I&apos;m at the gym, on the court, or chasing a good
+              meal somewhere. I believe the same thing that makes a great dish
+              makes great software — intention, repetition, and knowing exactly
+              who you&apos;re serving.
+            </p>
           </div>
 
-          <div className="grid lg:grid-cols-5 gap-12 items-start">
-            {/* Profile Picture */}
-            <div
-              className="lg:col-span-2 flex justify-center animate-slide-in-left"
-              style={{ animationDelay: isVisible ? "1.2s" : "0s" }}
-            >
-              <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-500" />
-                <div className="relative w-full max-w-sm aspect-square bg-muted rounded-2xl overflow-hidden border-4 border-background shadow-2xl">
-                  <img
-                    src="/marc.jpg"
-                    alt="Marc's profile picture"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </div>
+          <div className="about-stats">
+            <div className="about-stat">
+              <span className="about-stat-number">06+</span>
+              <span className="about-stat-label">Projects shipped</span>
             </div>
-
-            {/* Content */}
-            <div className="lg:col-span-3 space-y-6">
-              <div className="space-y-5">
-                {/* === TYPING ANIMATION === */}
-                <div className="min-h-[6.5rem] lg:min-h-[5rem] -mb-1">
-                  <p className="text-xl font-medium text-foreground leading-relaxed">
-                    Hi, I&apos;m <span className="text-primary font-bold">Marc</span> —{" "}
-                    <span className="typing-text-infinite">{typedText}</span>
-                  </p>
-                </div>
-
-                {/* Rest of paragraphs */}
-                {[
-                  "I love turning ideas into real projects, whether it's web apps, mobile apps, AI experiments, or interactive games.",
-                  "I thrive on learning new technologies, solving problems creatively, and pushing the boundaries of what software can do. Every project I work on is an opportunity to grow, innovate, and make an impact.",
-                  "When I'm not coding, you'll find me exploring tech trends, tinkering with small side projects, or planning the next big thing to build.",
-                  "Let's create something amazing together"
-                ].map((text, i) => (
-                  <p
-                    key={i}
-                    className={`
-                      leading-relaxed animate-fade-in-up text-muted-foreground
-                      ${i === 3 ? "text-xl font-medium text-foreground font-semibold pt-2" : ""}
-                    `}
-                    style={{ animationDelay: isVisible ? `${2.0 + i * 0.2}s` : "0s" }}
-                    dangerouslySetInnerHTML={{ __html: text }}
-                  />
-                ))}
-              </div>
-
-              {/* Interest Tags */}
-              <div className="pt-6">
-                <h3
-                  className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 animate-fade-in-up"
-                  style={{ animationDelay: isVisible ? "3.0s" : "0s" }}
-                >
-                  What I Love Building
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {["Web Apps", "Mobile Apps", "AI Projects", "UI/UX"].map((tag, i) => (
-                    <span
-                      key={tag}
-                      className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-all duration-300 cursor-default animate-pop-in shadow-sm hover:shadow-md hover:-translate-y-0.5"
-                      style={{ animationDelay: isVisible ? `${3.1 + i * 0.1}s` : "0s" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Get in touch (Social Links) */}
-              <div className="pt-8 border-t border-muted animate-fade-in-up" style={{ animationDelay: isVisible ? "4.0s" : "0s" }}>
-                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
-                  Get in touch
-                </h3>
-                <div className="flex flex-wrap gap-6">
-                  <a
-                    href="mailto:mpmendoza6@up.edu.ph"
-                    className="inline-flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>mpmendoza6@up.edu.ph</span>
-                  </a>
-                  <a
-                    href="https://github.com/marcjoemill"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Github className="w-5 h-5" />
-                    <span>GitHub</span>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/marc-joemil-mendoza1/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                    <span>LinkedIn</span>
-                  </a>
-                </div>
-              </div>
+            <div className="about-stat">
+              <span className="about-stat-number">01+</span>
+              <span className="about-stat-label">Years of experience</span>
+            </div>
+            <div className="about-stat">
+              <span className="about-stat-number">01+</span>
+              <span className="about-stat-label">Clients worked with</span>
             </div>
           </div>
         </div>
+
+        <div className="about-right">
+          <div className="about-masonry-wrap">
+            <Masonry
+              items={photos}
+              columns={columns}
+              ease="sine.out"
+              duration={0.6}
+              stagger={0.04}
+              animateFrom="bottom"
+              scaleOnHover
+              hoverScale={0.97}
+              blurToFocus
+              colorShiftOnHover={false}
+              onItemClick={(item) => setSelectedImg(item.img)}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tech stack — restaurant menu ──────────────────────────── */}
+      <section className="about-menu-section" id="stack">
+        <div className="about-menu-header">
+          <div className="about-label">
+            <span className="about-label-line" />
+            <span className="about-label-text">Tech Stack</span>
+            <span className="about-label-line" />
+          </div>
+
+          <h2 className="about-heading about-heading--center">
+            <span className="about-heading-light">Tools I </span>
+            <span className="about-heading-bold">work with.</span>
+          </h2>
+
+          <p className="about-menu-subtitle">
+            A curated selection of languages, frameworks & tools.
+          </p>
+        </div>
+
+        <div className="menu-card">
+          <div className="menu-card-inner">
+            {techMenu.map((section, si) => (
+              <div className="menu-category" key={`section-${si}`}>
+                <div className="menu-category-header">
+                  <span className="menu-category-rule" />
+                  <span className="menu-category-name">{section.category}</span>
+                  <span className="menu-category-rule" />
+                </div>
+
+                <ul className="menu-items">
+                  {section.items.map((item, ii) => (
+                    <li className="menu-item" key={`item-${si}-${ii}`}>
+                      <span className="menu-item-name">{item.name}</span>
+                      <span className="menu-item-dots" aria-hidden="true" />
+                      <span className="menu-item-note">{item.note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Image Modal Lightbox */}
+      <div className="about-lightbox-container">
+        <AnimatePresence>
+          {selectedImg && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              key="about-lightbox-overlay"
+              onClick={() => setSelectedImg(null)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(0,0,0,0.9)",
+                zIndex: 1000,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "zoom-out",
+                padding: "40px"
+              }}
+            >
+              <motion.img
+                src={selectedImg}
+                key="about-lightbox-img"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </section>
-  )
+    </div>
+  );
 }

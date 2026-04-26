@@ -4,7 +4,7 @@ import Philosophy from './components/Philosophy';
 import SelectedWork from './components/SelectedWork';
 import Proof from './components/Proof';
 import Thinking from './components/Thinking';
-import About from './components/About';
+import About from './components/Hero';
 import Footer from './components/Footer';
 
 function App() {
