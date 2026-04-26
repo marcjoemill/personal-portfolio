@@ -6,6 +6,7 @@ import "./About.css";
 import dynamic from "next/dynamic";
 
 const Masonry = dynamic(() => import("../animations/Masonry"), { ssr: false });
+const DecryptedText = dynamic(() => import("../animations/DecryptedText"), { ssr: false });
 
 // ── PHOTOS ────────────────────────────────────────────────────────────────
 const photos = [
@@ -86,9 +87,19 @@ export default function About() {
       <section className="about-section" id="about">
         <div className="about-left">
           <h2 className="about-heading">
-            <span className="about-heading-light">Crafting things</span>
+            <DecryptedText
+              text="Crafting things"
+              animateOn="view"
+              revealDirection="start"
+              parentClassName="about-heading-light"
+            />
             <br />
-            <span className="about-heading-bold">that matter.</span>
+            <DecryptedText
+              text="that matter."
+              animateOn="view"
+              revealDirection="start"
+              parentClassName="about-heading-bold"
+            />
           </h2>
 
           <div className="about-bio">

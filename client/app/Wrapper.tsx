@@ -8,7 +8,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
   return (
     <ReactLenis root>
       <ClickSpark
-        sparkColor="#e019e0"
+        sparkColor="#980606ff"
         sparkSize={25}
         sparkRadius={20}
         sparkCount={8}

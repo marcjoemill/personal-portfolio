@@ -1,6 +1,7 @@
   "use client";
 
   import { useEffect, useRef } from "react";
+  import TextType from "../animations/TextType";
   import "./Hero.css";
 
   /* ─────────────────────────────────────────────
@@ -236,7 +237,20 @@
         {/* ── main content ── */}
         <div className="hero-content" ref={contentRef}>
           <div className="hero-name-wrap">
-            <h1 className="hero-name" ref={nameRef}>mj</h1>
+            <h1 className="hero-name" ref={nameRef}>
+              <TextType
+                as="span"
+                text="mj"
+                showCursor={false}
+                cursorCharacter="_"
+                typingSpeed={500}
+                initialDelay={2000}
+                loop={true}
+                pauseDuration={10000}
+                deletingPauseDuration={1000}
+                deletingSpeed={500}
+              />
+            </h1>
           </div>
 
         </div>
