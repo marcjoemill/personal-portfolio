@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
+import Bill from './components/Bill';
 import Footer from './components/Footer';
 import SectionTransition from './components/SectionTransition';
 import CleaningLoader from './components/CleaningLoader';
@@ -65,6 +66,7 @@ export default function App() {
           line2="Take a bite, and explore the flavor of my work"
         />
         <Projects />
+        <Bill />
         <Footer />
       </motion.div>
     </main>
